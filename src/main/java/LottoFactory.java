@@ -8,20 +8,13 @@ public class LottoFactory {
 
     private static final int LOTTO_NUMBER_COUNT = 6;
 
-    private static final List<LottoNumber> lottoNumbers;
-
-    static {
-        lottoNumbers = new ArrayList<>();
-        IntStream.range(1, 45)
-                .forEach(number -> lottoNumbers.add(new LottoNumber(number)));
-    }
+    private static final LottoNumberPool lottoNumberPool = new LottoNumberPool();
 
     public static Lotto createLotto() {
-        Collections.shuffle(lottoNumbers);
-        return new Lotto(lottoNumbers.stream()
+        Collections.shuffle(lottoNumberPool.getLottoNumbers());
+        return new Lotto(lottoNumberPool.getLottoNumbers().stream()
                 .limit(LOTTO_NUMBER_COUNT)
                 .collect(Collectors.toList()));
     }
-
 
 }
