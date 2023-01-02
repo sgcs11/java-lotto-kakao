@@ -8,7 +8,7 @@ public class Lotto {
 
     private final List<LottoNumber> lottoNumbers;
 
-    public Lotto (List<LottoNumber> lottoNumbers) {
+    public Lotto (final List<LottoNumber> lottoNumbers) {
         this.lottoNumbers = lottoNumbers;
     }
 
