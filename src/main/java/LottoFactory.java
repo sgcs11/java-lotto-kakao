@@ -10,11 +10,9 @@ public class LottoFactory {
 
     private static final int LOTTO_PRICE = 1000;
 
-    private static final LottoNumberPool lottoNumberPool = new LottoNumberPool();
-
     public static Lotto createLotto() {
-        Collections.shuffle(lottoNumberPool.getLottoNumbers());
-        return new Lotto(lottoNumberPool.getLottoNumbers().stream()
+        Collections.shuffle(LottoNumber.getLottoNumbers());
+        return new Lotto(LottoNumber.getLottoNumbers().stream()
                 .limit(LOTTO_NUMBER_COUNT)
                 .collect(Collectors.toList()));
     }
@@ -28,8 +26,8 @@ public class LottoFactory {
         return new Lottos(lottoList);
     }
 
-
     public static int getLottoPrice() {
         return LOTTO_PRICE;
     }
+
 }

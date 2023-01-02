@@ -1,10 +1,6 @@
-/**
- * 로또넘버 자료형의 리스트 하나만 가지고 있음 -> 일급컬렉션...??
- */
-
 import java.util.List;
 
-public class Lotto {
+public class Lotto{
 
     private final List<LottoNumber> lottoNumbers;
 
@@ -15,4 +11,13 @@ public class Lotto {
     public List<LottoNumber> getLottoNumbers() {
         return lottoNumbers;
     }
+
+    public long getMatchCount(final List<LottoNumber> winNumbers) {
+        long count = lottoNumbers.stream()
+                        .filter(lottoNumber -> winNumbers.contains(lottoNumber))
+                        .count();
+
+        return count;
+    }
+
 }
