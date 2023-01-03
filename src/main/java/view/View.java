@@ -49,8 +49,6 @@ public class View {
     private static void printRate(final Lottos lottos, final WinLottoNumbers winLottoNumbers) {
         double rate = lottos.getTotalLotteryRate(lottos.getTotalLotteryAmount(winLottoNumbers), lottos.getTotalPay());
 
-        System.out.println("lottos.getTotalLotteryAmount(winLottoNumbers) = " + lottos.getTotalLotteryAmount(winLottoNumbers));
-        System.out.println("lottos.getTotalPay() = " + lottos.getTotalPay());
         System.out.printf("총 수익률은 %.2f 입니다.", Math.floor(rate * 100) / 100.0);
     }
 
