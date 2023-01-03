@@ -1,5 +1,6 @@
 package util;
 
+import domain.Lotto;
 import domain.LottoNumber;
 import domain.WinLottoNumbers;
 
@@ -9,14 +10,12 @@ import java.util.stream.Collectors;
 
 public class Parser {
 
-    public static WinLottoNumbers parsingWinNumbers(final String input) {
+    public static List<LottoNumber> parsingWinNumbers(final String input) {
         String[] inputs = input.replace(" ", "").split(",");
 
-        List<LottoNumber> lottoNumberList = Arrays.stream(inputs)
+        return Arrays.stream(inputs)
                 .map(Integer::parseInt)
                 .map(LottoNumber::getLottoNumber)
                 .collect(Collectors.toList());
-
-        return new WinLottoNumbers(lottoNumberList);
     }
 }

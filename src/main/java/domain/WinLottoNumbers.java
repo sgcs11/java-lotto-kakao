@@ -8,8 +8,9 @@ public class WinLottoNumbers {
 
     private LottoNumber bonusNumber;
 
-    public WinLottoNumbers(final List<LottoNumber> lottoNumbers) {
+    public WinLottoNumbers(final List<LottoNumber> lottoNumbers, final LottoNumber bonusNumber) {
         this.lottoNumbers = lottoNumbers;
+        this.bonusNumber = bonusNumber;
     }
 
     public List<LottoNumber> getLottoNumbers() {
@@ -18,9 +19,5 @@ public class WinLottoNumbers {
 
     public LottoNumber getBonusNumber() {
         return bonusNumber;
-    }
-
-    public void setBonusNumber(final LottoNumber bonusNumber) {
-        this.bonusNumber = bonusNumber;
     }
 }
