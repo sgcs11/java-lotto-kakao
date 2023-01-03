@@ -6,28 +6,27 @@ import java.util.stream.IntStream;
 
 public class LottoFactory {
 
-    private static final int LOTTO_NUMBER_COUNT = 6;
-
-    private static final int LOTTO_PRICE = 1000;
-
     public static Lotto createLotto() {
-        Collections.shuffle(LottoNumber.getLottoNumbers());
-        return new Lotto(LottoNumber.getLottoNumbers().stream()
-                .limit(LOTTO_NUMBER_COUNT)
-                .collect(Collectors.toList()));
+
+        List<LottoNumber> lottoNumbers = LottoNumber.getLottoNumbers();
+
+        Collections.shuffle(lottoNumbers);
+        return new Lotto(lottoNumbers.stream()
+                .limit(LottoInfo.LOTTO_NUMBER_COUNT.getValue())
+                        .collect(Collectors.toList()));
     }
 
     public static Lottos createLottos(int amount) {
         List<Lotto> lottoList = new ArrayList<>();
-        for (int i = 0; i < amount / LOTTO_PRICE; i++) {
+        for (int i = 0; i < amount / LottoInfo.LOTTO_PRICE.getValue(); i++) {
             lottoList.add(createLotto());
         }
 
-        return new Lottos(lottoList);
+        return new Lottos(lottoList, LottoInfo.LOTTO_PRICE.getValue() * lottoList.size());
     }
 
     public static int getLottoPrice() {
-        return LOTTO_PRICE;
+        return LottoInfo.LOTTO_PRICE.getValue();
     }
 
 }
