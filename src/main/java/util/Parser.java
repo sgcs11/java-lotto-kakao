@@ -1,8 +1,6 @@
 package util;
 
-import domain.Lotto;
 import domain.LottoNumber;
-import domain.WinLottoNumbers;
 
 import java.util.Arrays;
 import java.util.List;

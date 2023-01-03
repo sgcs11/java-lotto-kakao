@@ -33,14 +33,19 @@ public class Lottos {
         int result = 0;
 
         for(Lotto lotto : lottoList) {
-            int lottoMatchCount = lotto.getMatchCount(winNumbers.getLottoNumbers());
-            boolean isMatchBonus = lotto.isMatchBonusNumber(winNumbers.getBonusNumber());
-
-            int rank = lotto.getLotteryRank(lottoMatchCount, isMatchBonus);
+            int rank = getEachRank(winNumbers, lotto);
             result += lotto.getLotteryAmount(rank);
         }
 
         return result;
+    }
+
+    private static int getEachRank(final WinLottoNumbers winNumbers, final Lotto lotto) {
+        int lottoMatchCount = lotto.getMatchCount(winNumbers.getLottoNumbers());
+        boolean isMatchBonus = lotto.isMatchBonusNumber(winNumbers.getBonusNumber());
+
+        int rank = lotto.getLotteryRank(lottoMatchCount, isMatchBonus);
+        return rank;
     }
 
     public Map<Integer, Integer> getTotalResult(final WinLottoNumbers winNumbers) {
