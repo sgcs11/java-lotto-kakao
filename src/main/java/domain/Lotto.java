@@ -1,3 +1,5 @@
+package domain;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,22 +19,23 @@ public class Lotto{
      * 6개 일치 (2000000000원)- 0개
      */
 
-    public static int getLotteryAmount(final int matchCount, boolean isBonusMatch) {
-        if (matchCount == 6) return 2000000000;
-        if (matchCount == 5 && isBonusMatch) return 30000000;
-        if (matchCount == 5) return 1500000;
-        if (matchCount == 4) return 50000;
-        if (matchCount == 3) return 5000;
+    public int getLotteryAmount(final int rank) {
+        if (rank == 1) return 2000000000;
+        if (rank == 2) return 30000000;
+        if (rank == 3) return 1500000;
+        if (rank == 4) return 50000;
+        if (rank == 5) return 5000;
 
         return 0;
     }
 
-    public static int getLotteryResult(final int matchCount, boolean isBonusMatch) {
+    public int getLotteryRank(final int matchCount, boolean isBonusMatch) {
         if (matchCount == 6) return 1;
         if (matchCount == 5 && isBonusMatch) return 2;
         if (matchCount == 5) return 3;
         if (matchCount == 4) return 4;
         if (matchCount == 3) return 5;
+
         return 0;
     }
 
@@ -40,12 +43,10 @@ public class Lotto{
         return lottoNumbers;
     }
 
-    public long getMatchCount(final List<LottoNumber> winNumbers) {
-        long count = lottoNumbers.stream()
-                        .filter(lottoNumber -> winNumbers.contains(lottoNumber))
+    public int getMatchCount(final List<LottoNumber> winNumbers) {
+        return (int)lottoNumbers.stream()
+                        .filter(winNumbers::contains)
                         .count();
-
-        return count;
     }
 
     public boolean isMatchBonusNumber(LottoNumber bonusNumber) {
@@ -54,10 +55,10 @@ public class Lotto{
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("[");
-        stringBuilder.append(lottoNumbers.stream().map(LottoNumber::getNumber).map(String::valueOf).collect(Collectors.joining(",")));
-        stringBuilder.append("]");
-        return stringBuilder.toString();
+        return "["  + lottoNumbers.stream().
+                map(LottoNumber::getNumber)
+                .map(String::valueOf)
+                .collect(Collectors.joining(","))
+                + "]";
     }
 }

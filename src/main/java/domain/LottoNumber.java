@@ -1,10 +1,9 @@
-//1~45
+package domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoNumber {
@@ -13,7 +12,7 @@ public class LottoNumber {
 
     private static final Map<Integer, LottoNumber> lottoNumbers = new HashMap<>();
 
-    private int number;
+    private final int number;
 
     static {
         IntStream.range(MIN_NUMBER, MAX_NUMBER)
@@ -35,7 +34,6 @@ public class LottoNumber {
     public int getNumber() {
         return number;
     }
-
 
 }
 

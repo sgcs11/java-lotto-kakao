@@ -1,10 +1,10 @@
+import domain.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoTest {
 
@@ -46,7 +46,7 @@ public class LottoTest {
                     .collect(Collectors.toList());
             lottoList.add(new Lotto(asLottoNumbers(tmp)));
         }
-        lottos = new Lottos(lottoList, lottoList.size());
+        lottos = new Lottos(lottoList);
     }
 
     @Test
@@ -73,14 +73,13 @@ public class LottoTest {
     @ValueSource(ints = {10000, 20000, 5000, 1000, 3000})
     void  로또_구입_금액에_해당하는_로또를_발급한다(final int amount) {
         Lottos lottos = LottoFactory.createLottos(amount);
-        assertThat(lottos.getLottoList()).hasSize(amount / LottoFactory.getLottoPrice());
+        assertThat(lottos.getLottoList()).hasSize(amount / LottoInfo.LOTTO_PRICE.getValue());
     }
 
     static List<LottoNumber> asLottoNumbers (List<Integer> lottoNumbers) {
-        List<LottoNumber> result = new ArrayList<>();
-        for (int number : lottoNumbers)
-            result.add(LottoNumber.getLottoNumber(number));
-        return result;
+        return lottoNumbers.stream()
+                .map(LottoNumber::getLottoNumber)
+                .collect(Collectors.toList());
     }
 
     static Stream<Arguments> lottoData() {
@@ -97,26 +96,30 @@ public class LottoTest {
         assertThat(lotto.getMatchCount(winNumbers)).isEqualTo(answer);
     }
 
-    @ParameterizedTest
-    @CsvSource({"0,false,0","1,false,0","2,false,0","3,false,5000","4,false,50000","5,true,30000000","5,false,1500000","6,true,2000000000"})
-    void 로또의_당첨금액을_계산한다(int matchCount, boolean isBonusMatch, int lotteryAmount) {
-        assertThat(Lotto.getLotteryAmount(matchCount, isBonusMatch)).isEqualTo(lotteryAmount);
-    }
-
     static Stream<Arguments> lottoData2() {
         return Stream.of(
-                Arguments.of(asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)), asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)), 6),
-                Arguments.of(asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)), asLottoNumbers(Arrays.asList(2, 4, 6, 8, 10, 20)), 3)
+                Arguments.of(asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)), asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)), 2000000000),
+                Arguments.of(asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)), asLottoNumbers(Arrays.asList(2, 4, 6, 8, 10, 20)), 5000)
         );
+    }
+
+    @ParameterizedTest
+    @MethodSource("lottoData2")
+    void 로또의_당첨금액을_계산한다(List<LottoNumber> lottoNumbers, List<LottoNumber> winNumbers, int answer) {
+        Lotto lotto = new Lotto(lottoNumbers);
+        int matchCount = lotto.getMatchCount(winNumbers);
+        boolean isBonusMatch = false;
+        int rank = lotto.getLotteryRank(matchCount, isBonusMatch);
+
+        assertThat(lotto.getLotteryAmount(rank)).isEqualTo(answer);
     }
 
     @Test
     void 총_수익률을_계산하여_출력한다() {
         List<LottoNumber> winNumbers = asLottoNumbers(Arrays.asList(1,2,3,4,5,6));
-        WinLottoNumbers winLottoNumbers = new WinLottoNumbers();
+        WinLottoNumbers winLottoNumbers = new WinLottoNumbers(winNumbers);
 
-        winLottoNumbers.setWinNumbers(winNumbers);
         winLottoNumbers.setBonusNumber(LottoNumber.getLottoNumber(7));
-        assertThat(Math.floor(lottos.getTotalLotteryRate(lottos.getTotalLotteryAmount(winLottoNumbers), 15000.0) * 100)).isEqualTo(200033);
+        assertThat(Math.floor(lottos.getTotalLotteryRate(lottos.getTotalLotteryAmount(winLottoNumbers), 15000) * 100)).isEqualTo(200033);
     }
 }

@@ -1,17 +1,19 @@
-import java.util.ArrayList;
+package domain;
+
 import java.util.List;
 
 public class WinLottoNumbers {
 
-    private List<LottoNumber> numbers = new ArrayList<>();
+    private final List<LottoNumber> lottoNumbers;
+
     private LottoNumber bonusNumber;
 
-    public List<LottoNumber> getNumbers() {
-        return numbers;
+    public WinLottoNumbers(final List<LottoNumber> lottoNumbers) {
+        this.lottoNumbers = lottoNumbers;
     }
 
-    public void setWinNumbers(final List<LottoNumber> lottoNumbers) {
-        this.numbers = lottoNumbers;
+    public List<LottoNumber> getLottoNumbers() {
+        return lottoNumbers;
     }
 
     public LottoNumber getBonusNumber() {
