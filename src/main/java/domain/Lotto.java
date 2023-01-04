@@ -49,10 +49,11 @@ public class Lotto{
 
     @Override
     public String toString() {
-        return "["  + lottoNumbers.stream().
-                map(LottoNumber::getNumber)
-                .map(String::valueOf)
-                .collect(Collectors.joining(","))
+        return "["  +
+                lottoNumbers.stream()
+                        .map(LottoNumber::getNumber)
+                        .map(String::valueOf)
+                        .collect(Collectors.joining(","))
                 + "]";
     }
 }
