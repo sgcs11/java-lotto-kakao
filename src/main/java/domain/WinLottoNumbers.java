@@ -6,7 +6,7 @@ public class WinLottoNumbers {
 
     private final List<LottoNumber> lottoNumbers;
 
-    private LottoNumber bonusNumber;
+    private final LottoNumber bonusNumber;
 
     public WinLottoNumbers(final List<LottoNumber> lottoNumbers, final LottoNumber bonusNumber) {
         this.lottoNumbers = lottoNumbers;
