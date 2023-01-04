@@ -7,9 +7,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class LottoOutputView {
-    public static void printLottos(Lottos lottos) {
-        System.out.printf("%d개를 구매했습니다.%n", lottos.getLottoCount());
-        lottos.getLottoList()
+    public static void printLottos(Lottos manualIssueLottos, Lottos autoIssueLottos) {
+        System.out.printf("수동으로 %d개, 자동으로 %d개를 구매했습니다.%n", manualIssueLottos.getLottoCount(), autoIssueLottos.getLottoCount());
+
+        manualIssueLottos.getLottoList()
+                .forEach(lotto -> System.out.println(lotto.toString()));
+        autoIssueLottos.getLottoList()
                 .forEach(lotto -> System.out.println(lotto.toString()));
     }
 

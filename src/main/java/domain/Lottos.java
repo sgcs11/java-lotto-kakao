@@ -44,8 +44,7 @@ public class Lottos {
         int lottoMatchCount = lotto.getMatchCount(winNumbers.getLottoNumbers());
         boolean isMatchBonus = lotto.isMatchBonusNumber(winNumbers.getBonusNumber());
 
-        int rank = lotto.getLotteryRank(lottoMatchCount, isMatchBonus);
-        return rank;
+        return lotto.getLotteryRank(lottoMatchCount, isMatchBonus);
     }
 
     public Map<Integer, Integer> getTotalResult(final WinLottoNumbers winNumbers) {

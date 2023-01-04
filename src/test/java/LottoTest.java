@@ -51,13 +51,13 @@ public class LottoTest {
 
     @Test
     void 로또번호_6개를_발급한다() {
-        Lotto lotto = LottoFactory.createLotto();
+        Lotto lotto = LottoFactory.CreateAutoLotto();
         assertThat(lotto.getLottoNumbers()).hasSize(6);
     }
 
     @Test
     void 로또번호는_1이상_45이하이다() {
-        Lotto lotto = LottoFactory.createLotto();
+        Lotto lotto = LottoFactory.CreateAutoLotto();
         for (LottoNumber lottoNumber : lotto.getLottoNumbers()) {
             assertThat(lottoNumber.getNumber()).isBetween(1, 45);
         }
@@ -65,14 +65,14 @@ public class LottoTest {
 
     @Test
     void 로또번호는_중복되지_않는다() {
-        Lotto lotto = LottoFactory.createLotto();
+        Lotto lotto = LottoFactory.CreateAutoLotto();
         assertThat(lotto.getLottoNumbers()).doesNotHaveDuplicates();
     }
 
     @ParameterizedTest
     @ValueSource(ints = {10_000, 20_000, 5_000, 1_000, 3_000})
     void  로또_구입_금액에_해당하는_로또를_발급한다(final int amount) {
-        Lottos lottos = LottoFactory.createLottos(amount);
+        Lottos lottos = LottoFactory.createAutoLottos(amount);
         assertThat(lottos.getLottoList()).hasSize(amount / LottoInfo.LOTTO_PRICE.getValue());
     }
 
@@ -123,7 +123,8 @@ public class LottoTest {
     }
 
     @Test
-    void 로또를_수동으로_구매한다() {
-
+    void 로또를_수동으로_발급한다() {
+        Lottos manualLottos = LottoFactory.createManualLottos(lottos.getLottoList());
+        assertThat(manualLottos.getLottoList()).hasSize(lottos.getLottoCount());
     }
 }

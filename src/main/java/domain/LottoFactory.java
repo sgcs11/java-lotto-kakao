@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class LottoFactory {
 
-    public static Lotto createLotto() {
+    public static Lotto CreateAutoLotto() {
         List<LottoNumber> lottoNumbers = LottoNumber.getLottoNumbers();
 
         Collections.shuffle(lottoNumbers);
@@ -17,13 +17,30 @@ public class LottoFactory {
                         .collect(Collectors.toList()));
     }
 
-    public static Lottos createLottos(int amount) {
+    public static Lotto createManualLotto(List<LottoNumber> lottoNumbers) {
+        return new Lotto(lottoNumbers);
+    }
+
+    public static Lottos createLottos(Lottos autoCreateLottos, Lottos manualCreateLottos) {
         List<Lotto> lottoList = new ArrayList<>();
 
-        for (int i = 0; i < amount / LottoInfo.LOTTO_PRICE.getValue(); i++) {
-            lottoList.add(createLotto());
+        lottoList.addAll(manualCreateLottos.getLottoList());
+        lottoList.addAll(autoCreateLottos.getLottoList());
+
+        return new Lottos(lottoList);
+    }
+
+    public static Lottos createAutoLottos(int autoCreateAmount) {
+        List<Lotto> lottoList = new ArrayList<>();
+
+        for (int i = 0; i < autoCreateAmount / LottoInfo.LOTTO_PRICE.getValue(); i++) {
+            lottoList.add(CreateAutoLotto());
         }
 
         return new Lottos(lottoList);
+    }
+
+    public static Lottos createManualLottos(List<Lotto> manualLottos) {
+        return new Lottos(manualLottos);
     }
 }

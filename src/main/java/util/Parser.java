@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class Parser {
 
-    public static List<LottoNumber> parsingWinNumbers(final String input) {
+    public static List<LottoNumber> parsingLottoNumbers(final String input) {
         String[] inputs = input.replace(" ", "").split(",");
 
         return Arrays.stream(inputs)
