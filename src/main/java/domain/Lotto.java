@@ -20,13 +20,7 @@ public class Lotto{
      */
 
     public int getLotteryAmount(final int rank) {
-        if (rank == 1) return 2000000000;
-        if (rank == 2) return 30000000;
-        if (rank == 3) return 1500000;
-        if (rank == 4) return 50000;
-        if (rank == 5) return 5000;
-
-        return 0;
+        return LotteryAmount.values()[rank - 1].get();
     }
 
     public int getLotteryRank(final int matchCount, boolean isBonusMatch) {
@@ -36,7 +30,7 @@ public class Lotto{
         if (matchCount == 4) return 4;
         if (matchCount == 3) return 5;
 
-        return 0;
+        return 6;
     }
 
     public List<LottoNumber> getLottoNumbers() {
