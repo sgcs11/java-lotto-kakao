@@ -121,4 +121,9 @@ public class LottoTest {
 
         assertThat(Math.floor(lottos.getTotalLotteryRate(lottos.getTotalLotteryAmount(winLottoNumbers), 15_000) * 100)).isEqualTo(200_033);
     }
+
+    @Test
+    void 로또를_수동으로_구매한다() {
+
+    }
 }
