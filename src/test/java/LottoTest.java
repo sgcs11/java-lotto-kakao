@@ -70,7 +70,7 @@ public class LottoTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {10000, 20000, 5000, 1000, 3000})
+    @ValueSource(ints = {10_000, 20_000, 5_000, 1_000, 3_000})
     void  로또_구입_금액에_해당하는_로또를_발급한다(final int amount) {
         Lottos lottos = LottoFactory.createLottos(amount);
         assertThat(lottos.getLottoList()).hasSize(amount / LottoInfo.LOTTO_PRICE.getValue());
@@ -98,8 +98,8 @@ public class LottoTest {
 
     static Stream<Arguments> lottoData2() {
         return Stream.of(
-                Arguments.of(asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)), asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)), 2000000000),
-                Arguments.of(asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)), asLottoNumbers(Arrays.asList(2, 4, 6, 8, 10, 20)), 5000)
+                Arguments.of(asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)), asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)), 2_000_000_000),
+                Arguments.of(asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6)), asLottoNumbers(Arrays.asList(2, 4, 6, 8, 10, 20)), 5_000)
         );
     }
 
@@ -119,6 +119,6 @@ public class LottoTest {
         List<LottoNumber> winNumbers = asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
         WinLottoNumbers winLottoNumbers = new WinLottoNumbers(winNumbers, LottoNumber.getLottoNumber(7));
 
-        assertThat(Math.floor(lottos.getTotalLotteryRate(lottos.getTotalLotteryAmount(winLottoNumbers), 15000) * 100)).isEqualTo(200033);
+        assertThat(Math.floor(lottos.getTotalLotteryRate(lottos.getTotalLotteryAmount(winLottoNumbers), 15_000) * 100)).isEqualTo(200_033);
     }
 }
