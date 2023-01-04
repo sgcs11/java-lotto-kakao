@@ -116,7 +116,7 @@ public class LottoTest {
 
     @Test
     void 총_수익률을_계산하여_출력한다() {
-        List<LottoNumber> winNumbers = asLottoNumbers(Arrays.asList(1,2,3,4,5,6));
+        List<LottoNumber> winNumbers = asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
         WinLottoNumbers winLottoNumbers = new WinLottoNumbers(winNumbers, LottoNumber.getLottoNumber(7));
 
         assertThat(Math.floor(lottos.getTotalLotteryRate(lottos.getTotalLotteryAmount(winLottoNumbers), 15000) * 100)).isEqualTo(200033);
