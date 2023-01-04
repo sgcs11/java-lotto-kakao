@@ -1,4 +1,4 @@
-package view;
+package view.lotto;
 
 import domain.Lottos;
 import domain.WinLottoNumbers;
@@ -6,29 +6,7 @@ import domain.WinLottoNumbers;
 import java.util.Map;
 import java.util.Scanner;
 
-public class View {
-
-    private static final Scanner scanner = new Scanner(System.in);
-
-    public static int inputAmount() {
-        System.out.println("구입금액을 입력해 주세요.");
-        String input = scanner.nextLine();
-
-        return Integer.parseInt(input);
-    }
-
-    public static String inputWinNumbers(){
-        System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
-
-        return scanner.nextLine();
-    }
-
-    public static int inputBounsNumber() {
-        System.out.println("보너스 볼을 입력해 주세요.");
-
-        return scanner.nextInt();
-    }
-
+public class LottoOutputView {
     public static void printLottos(Lottos lottos) {
         System.out.printf("%d개를 구매했습니다.%n", lottos.getLottoCount());
         lottos.getLottoList()
