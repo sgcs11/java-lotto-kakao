@@ -24,13 +24,13 @@ public class Lotto{
     }
 
     public int getLotteryRank(final int matchCount, boolean isBonusMatch) {
-        if (matchCount == 6) return 1;
-        if (matchCount == 5 && isBonusMatch) return 2;
-        if (matchCount == 5) return 3;
-        if (matchCount == 4) return 4;
-        if (matchCount == 3) return 5;
-
-        return 6;
+        switch(matchCount) {
+            case 6: return 1;
+            case 5: return (isBonusMatch)? 2:3;
+            case 4: return 4;
+            case 3: return 5;
+            default: return 6;
+        }
     }
 
     public List<LottoNumber> getLottoNumbers() {
@@ -49,11 +49,9 @@ public class Lotto{
 
     @Override
     public String toString() {
-        return "["  +
-                lottoNumbers.stream()
+        return "["  + lottoNumbers.stream()
                         .map(LottoNumber::getNumber)
                         .map(String::valueOf)
-                        .collect(Collectors.joining(","))
-                + "]";
+                        .collect(Collectors.joining(",")) + "]";
     }
 }
