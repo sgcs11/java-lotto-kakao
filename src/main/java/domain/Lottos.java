@@ -59,6 +59,9 @@ public class Lottos {
     }
 
     public double getTotalLotteryRate(final int amount, final int purchaseAmount) {
-        return (double)amount/purchaseAmount;
+        if (purchaseAmount == 0) {
+            return 0.0;
+        }
+        return Math.floor((double)amount/purchaseAmount * 100) / 100.0;
     }
 }
