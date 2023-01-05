@@ -1,12 +1,11 @@
 package controller;
 
 import domain.*;
-import domain.util.LottoValidator;
+import domain.util.validation.LottoValidator;
 import util.Parser;
 import view.lotto.LottoInputView;
 import view.lotto.LottoOutputView;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -16,7 +15,6 @@ public class LottoController {
         int totalIssueCost = LottoInputView.inputAmount();
 
         Lottos manualIssueLottos = manualIssueProcess();
-        LottoValidator.validate(manualIssueLottos.getClass());
 
         Lottos autoIssueLottos = autoIssueProcess(totalIssueCost, LottoInfo.LOTTO_PRICE.getValue() * manualIssueLottos.getLottoList().size());
         LottoOutputView.printLottos(manualIssueLottos, autoIssueLottos);
@@ -44,6 +42,7 @@ public class LottoController {
 
         LottoNumber bonusLottoNumber = LottoNumber.getLottoNumber(LottoInputView.inputBounsNumber());
         WinLottoNumbers winLottoNumbers = new WinLottoNumbers(lottoNumbers, bonusLottoNumber);
+        LottoValidator.validate(winLottoNumbers);
 
         LottoOutputView.printResult(lottos, winLottoNumbers);
     }

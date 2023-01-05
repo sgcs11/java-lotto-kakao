@@ -1,7 +1,8 @@
 package domain;
 
-import domain.util.LottoValid;
+import domain.util.validation.LottoValidator;
 
+import javax.xml.validation.Validator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,13 +16,17 @@ public class LottoFactory {
 
         Collections.shuffle(lottoNumbers);
 
-        return new Lotto(lottoNumbers.stream()
+        Lotto lotto = new Lotto(lottoNumbers.stream()
                 .limit(LottoInfo.LOTTO_NUMBER_COUNT.getValue())
-                        .collect(Collectors.toSet()));
+                .collect(Collectors.toSet()));
+        LottoValidator.validate(lotto);
+        return lotto;
     }
 
     public static Lotto createManualLotto(Set<LottoNumber> lottoNumbers) {
-        return new Lotto(lottoNumbers);
+        Lotto lotto = new Lotto(lottoNumbers);
+        LottoValidator.validate(lotto);
+        return lotto;
     }
 
     public static Lottos createLottos(Lottos autoCreateLottos, Lottos manualCreateLottos) {

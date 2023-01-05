@@ -1,11 +1,13 @@
 package domain;
 
+import domain.util.validation.SixNumbers;
+
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Lotto{
-
+    @SixNumbers
     private final Set<LottoNumber> lottoNumbers;
 
     public Lotto (final Set<LottoNumber> lottoNumbers) {
