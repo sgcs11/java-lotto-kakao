@@ -30,8 +30,8 @@ public class LottoInputView {
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public static Set<String> inputManualLottoNumbers(int manualIssueCount) {
-        Set<String> inputs = new HashSet<>();
+    public static List<String> inputManualLottoNumbers(int manualIssueCount) {
+        List<String> inputs = new ArrayList<>(manualIssueCount);
         System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
 
         for (int i = 0; i < manualIssueCount; i ++) {

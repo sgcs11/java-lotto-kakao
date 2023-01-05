@@ -1,13 +1,10 @@
 package domain.util.validation;
 
-import domain.Lotto;
 import domain.LottoNumber;
-import domain.Lottos;
+import domain.util.validation.annotation.SixNumbers;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -17,7 +14,12 @@ public class LottoValidator {
 
     public static void validate(Object obj) {
         Field[] declaredFields = obj.getClass().getDeclaredFields();
+        Method[] declaredMethods = obj.getClass().getDeclaredMethods();
 
+        validSixNumbers(obj, declaredFields);
+    }
+
+    private static void validSixNumbers(final Object obj, final Field[] declaredFields) {
         List<Field> fields = Arrays.stream(declaredFields)
                 .filter(field -> field.isAnnotationPresent(SixNumbers.class))
                 .collect(Collectors.toList());

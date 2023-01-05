@@ -2,7 +2,6 @@ package domain;
 
 import domain.util.validation.LottoValidator;
 
-import javax.xml.validation.Validator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

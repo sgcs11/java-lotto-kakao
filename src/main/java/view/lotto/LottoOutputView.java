@@ -4,7 +4,6 @@ import domain.Lottos;
 import domain.WinLottoNumbers;
 
 import java.util.Map;
-import java.util.Scanner;
 
 public class LottoOutputView {
     public static void printLottos(Lottos manualIssueLottos, Lottos autoIssueLottos) {

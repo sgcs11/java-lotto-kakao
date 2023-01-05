@@ -1,13 +1,10 @@
 package domain;
 
-import domain.util.validation.LottoValidator;
-import domain.util.validation.SixNumbers;
+import domain.util.validation.annotation.SixNumbers;
 
-import java.util.List;
 import java.util.Set;
 
 public class WinLottoNumbers {
-
     @SixNumbers
     private final Set<LottoNumber> lottoNumbers;
 

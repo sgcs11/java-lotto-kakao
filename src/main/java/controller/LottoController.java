@@ -6,6 +6,7 @@ import util.Parser;
 import view.lotto.LottoInputView;
 import view.lotto.LottoOutputView;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,8 @@ public class LottoController {
 
     public static void run() {
         int totalIssueCost = LottoInputView.inputAmount();
+
+        if (totalIssueCost < 0) throw new RuntimeException("금액은 0보다 크거나 같아야 합니다.");
 
         Lottos manualIssueLottos = manualIssueProcess();
 
@@ -28,7 +31,7 @@ public class LottoController {
     }
 
     private static Lottos manualIssueProcess() {
-        Set<String> inputManualLottoNumbers = LottoInputView.inputManualLottoNumbers(LottoInputView.inputManualCount());
+        List<String> inputManualLottoNumbers = LottoInputView.inputManualLottoNumbers(LottoInputView.inputManualCount());
 
         return LottoFactory.createManualLottos(inputManualLottoNumbers
                 .stream()
@@ -40,7 +43,9 @@ public class LottoController {
     private static void resultProcess(final Lottos lottos) {
         Set<LottoNumber> lottoNumbers = Parser.parsingLottoNumbers(LottoInputView.inputWinNumbers());
 
-        LottoNumber bonusLottoNumber = LottoNumber.getLottoNumber(LottoInputView.inputBounsNumber());
+        int inputBounsNumber = LottoInputView.inputBounsNumber();
+        if (inputBounsNumber < 0) throw new RuntimeException("보너스 번호는 1~45사이어야 합니다.");
+        LottoNumber bonusLottoNumber = LottoNumber.getLottoNumber(inputBounsNumber);
         WinLottoNumbers winLottoNumbers = new WinLottoNumbers(lottoNumbers, bonusLottoNumber);
         LottoValidator.validate(winLottoNumbers);
 
