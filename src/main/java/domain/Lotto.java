@@ -1,13 +1,14 @@
 package domain;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Lotto{
 
-    private final List<LottoNumber> lottoNumbers;
+    private final Set<LottoNumber> lottoNumbers;
 
-    public Lotto (final List<LottoNumber> lottoNumbers) {
+    public Lotto (final Set<LottoNumber> lottoNumbers) {
         this.lottoNumbers = lottoNumbers;
     }
 
@@ -33,11 +34,11 @@ public class Lotto{
         }
     }
 
-    public List<LottoNumber> getLottoNumbers() {
+    public Set<LottoNumber> getLottoNumbers() {
         return lottoNumbers;
     }
 
-    public int getMatchCount(final List<LottoNumber> winNumbers) {
+    public int getMatchCount(final Set<LottoNumber> winNumbers) {
         return (int)lottoNumbers.stream()
                         .filter(winNumbers::contains)
                         .count();

@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -76,10 +77,10 @@ public class LottoTest {
         assertThat(lottos.getLottoList()).hasSize(amount / LottoInfo.LOTTO_PRICE.getValue());
     }
 
-    static List<LottoNumber> asLottoNumbers (List<Integer> lottoNumbers) {
+    static Set<LottoNumber> asLottoNumbers (List<Integer> lottoNumbers) {
         return lottoNumbers.stream()
                 .map(LottoNumber::getLottoNumber)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     static Stream<Arguments> lottoData() {
@@ -91,7 +92,7 @@ public class LottoTest {
 
     @ParameterizedTest
     @MethodSource("lottoData")
-    void 로또_번호가_몇_개_일치하는지_계산한다(List<LottoNumber> lottoNumbers, List<LottoNumber> winNumbers, int answer) {
+    void 로또_번호가_몇_개_일치하는지_계산한다(Set<LottoNumber> lottoNumbers, Set<LottoNumber> winNumbers, int answer) {
         Lotto lotto = new Lotto(lottoNumbers);
         assertThat(lotto.getMatchCount(winNumbers)).isEqualTo(answer);
     }
@@ -105,7 +106,7 @@ public class LottoTest {
 
     @ParameterizedTest
     @MethodSource("lottoData2")
-    void 로또의_당첨금액을_계산한다(List<LottoNumber> lottoNumbers, List<LottoNumber> winNumbers, int answer) {
+    void 로또의_당첨금액을_계산한다(Set<LottoNumber> lottoNumbers, Set<LottoNumber> winNumbers, int answer) {
         Lotto lotto = new Lotto(lottoNumbers);
         int matchCount = lotto.getMatchCount(winNumbers);
         boolean isBonusMatch = false;
@@ -116,7 +117,7 @@ public class LottoTest {
 
     @Test
     void 총_수익률을_계산하여_출력한다() {
-        List<LottoNumber> winNumbers = asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
+        Set<LottoNumber> winNumbers = asLottoNumbers(Arrays.asList(1, 2, 3, 4, 5, 6));
         WinLottoNumbers winLottoNumbers = new WinLottoNumbers(winNumbers, LottoNumber.getLottoNumber(7));
 
         assertThat(Math.floor(lottos.getTotalLotteryRate(lottos.getTotalLotteryAmount(winLottoNumbers), 15_000) * 100)).isEqualTo(200_033);

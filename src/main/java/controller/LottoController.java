@@ -1,11 +1,13 @@
 package controller;
 
 import domain.*;
+import domain.util.LottoValidator;
 import util.Parser;
 import view.lotto.LottoInputView;
 import view.lotto.LottoOutputView;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class LottoController {
@@ -14,6 +16,8 @@ public class LottoController {
         int totalIssueCost = LottoInputView.inputAmount();
 
         Lottos manualIssueLottos = manualIssueProcess();
+        LottoValidator.validate(manualIssueLottos.getClass());
+
         Lottos autoIssueLottos = autoIssueProcess(totalIssueCost, LottoInfo.LOTTO_PRICE.getValue() * manualIssueLottos.getLottoList().size());
         LottoOutputView.printLottos(manualIssueLottos, autoIssueLottos);
 
@@ -26,7 +30,7 @@ public class LottoController {
     }
 
     private static Lottos manualIssueProcess() {
-        List<String> inputManualLottoNumbers = LottoInputView.inputManualLottoNumbers(LottoInputView.inputManualCount());
+        Set<String> inputManualLottoNumbers = LottoInputView.inputManualLottoNumbers(LottoInputView.inputManualCount());
 
         return LottoFactory.createManualLottos(inputManualLottoNumbers
                 .stream()
@@ -36,7 +40,7 @@ public class LottoController {
     }
 
     private static void resultProcess(final Lottos lottos) {
-        List<LottoNumber> lottoNumbers = Parser.parsingLottoNumbers(LottoInputView.inputWinNumbers());
+        Set<LottoNumber> lottoNumbers = Parser.parsingLottoNumbers(LottoInputView.inputWinNumbers());
 
         LottoNumber bonusLottoNumber = LottoNumber.getLottoNumber(LottoInputView.inputBounsNumber());
         WinLottoNumbers winLottoNumbers = new WinLottoNumbers(lottoNumbers, bonusLottoNumber);

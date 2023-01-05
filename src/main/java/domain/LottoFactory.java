@@ -1,8 +1,11 @@
 package domain;
 
+import domain.util.LottoValid;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class LottoFactory {
@@ -14,10 +17,10 @@ public class LottoFactory {
 
         return new Lotto(lottoNumbers.stream()
                 .limit(LottoInfo.LOTTO_NUMBER_COUNT.getValue())
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toSet()));
     }
 
-    public static Lotto createManualLotto(List<LottoNumber> lottoNumbers) {
+    public static Lotto createManualLotto(Set<LottoNumber> lottoNumbers) {
         return new Lotto(lottoNumbers);
     }
 
