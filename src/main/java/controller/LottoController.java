@@ -13,13 +13,11 @@ import java.util.stream.Collectors;
 public class LottoController {
 
     public static void run() {
-        int totalIssueCost = LottoInputView.inputAmount();
-
-        if (totalIssueCost < 0) throw new RuntimeException("금액은 0보다 크거나 같아야 합니다.");
+        String totalIssueCost = LottoInputView.inputAmount();
+        LottoValidator.isValidAmount(totalIssueCost);
 
         Lottos manualIssueLottos = manualIssueProcess();
-
-        Lottos autoIssueLottos = autoIssueProcess(totalIssueCost, LottoInfo.LOTTO_PRICE.getValue() * manualIssueLottos.getLottoList().size());
+        Lottos autoIssueLottos = autoIssueProcess(Integer.parseInt(totalIssueCost), LottoInfo.LOTTO_PRICE.getValue() * manualIssueLottos.getLottoList().size());
         LottoOutputView.printLottos(manualIssueLottos, autoIssueLottos);
 
         Lottos lottos = LottoFactory.createLottos(autoIssueLottos, manualIssueLottos);
@@ -31,7 +29,10 @@ public class LottoController {
     }
 
     private static Lottos manualIssueProcess() {
-        List<String> inputManualLottoNumbers = LottoInputView.inputManualLottoNumbers(LottoInputView.inputManualCount());
+        String manualCount = LottoInputView.inputManualCount();
+        LottoValidator.isValidManualCount(manualCount);
+        List<String> inputManualLottoNumbers = LottoInputView.inputManualLottoNumbers(Integer.parseInt(manualCount));
+        inputManualLottoNumbers.forEach(LottoValidator::isValidSixNumbers);
 
         return LottoFactory.createManualLottos(inputManualLottoNumbers
                 .stream()
@@ -41,13 +42,15 @@ public class LottoController {
     }
 
     private static void resultProcess(final Lottos lottos) {
-        Set<LottoNumber> lottoNumbers = Parser.parsingLottoNumbers(LottoInputView.inputWinNumbers());
+        String inputWinNumbers = LottoInputView.inputWinNumbers();
+        LottoValidator.isValidSixNumbers(inputWinNumbers);
+        Set<LottoNumber> lottoNumbers = Parser.parsingLottoNumbers(inputWinNumbers);
 
-        int inputBounsNumber = LottoInputView.inputBounsNumber();
-        if (inputBounsNumber < 0) throw new RuntimeException("보너스 번호는 1~45사이어야 합니다.");
-        LottoNumber bonusLottoNumber = LottoNumber.getLottoNumber(inputBounsNumber);
+        String inputBonusNumber = LottoInputView.inputBonusNumber();
+        LottoValidator.isValidLottoNumber(inputBonusNumber);
+
+        LottoNumber bonusLottoNumber = LottoNumber.getLottoNumber(Integer.parseInt(inputBonusNumber));
         WinLottoNumbers winLottoNumbers = new WinLottoNumbers(lottoNumbers, bonusLottoNumber);
-        LottoValidator.validate(winLottoNumbers);
 
         LottoOutputView.printResult(lottos, winLottoNumbers);
     }

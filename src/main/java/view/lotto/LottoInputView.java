@@ -1,38 +1,35 @@
 package view.lotto;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class LottoInputView {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static int inputAmount() {
-        System.out.println("구입금액을 입력해 주세요.");
-        String input = scanner.nextLine();
-
-        return Integer.parseInt(input);
-    }
-
-    public static String inputWinNumbers(){
-        System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
-
+    public static String inputAmount() {
+        System.out.println(LottoInputMessage.INPUT_AMOUNT_MESSAGE.get());
         return scanner.nextLine();
     }
 
-    public static int inputBounsNumber() {
-        System.out.println("보너스 볼을 입력해 주세요.");
-
-        return scanner.nextInt();
+    public static String inputWinNumbers(){
+        System.out.println(LottoInputMessage.INPUT_WIN_NUMBERS_MESSAGE.get());
+        return scanner.nextLine();
     }
 
-    public static int inputManualCount() {
-        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
+    public static String inputBonusNumber() {
+        System.out.println(LottoInputMessage.INPUT_BONUS_NUMBER.get());
+        return scanner.nextLine();
+    }
 
-        return Integer.parseInt(scanner.nextLine());
+    public static String inputManualCount() {
+        System.out.println(LottoInputMessage.INPUT_MANUAL_COUNT_MESSAGE.get());
+        return scanner.nextLine();
     }
 
     public static List<String> inputManualLottoNumbers(int manualIssueCount) {
         List<String> inputs = new ArrayList<>(manualIssueCount);
-        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+        System.out.println(LottoInputMessage.INPUT_MANUAL_LOTTO_NUMBERS_MESSAGE.get());
 
         for (int i = 0; i < manualIssueCount; i ++) {
             inputs.add(scanner.nextLine());
