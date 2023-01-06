@@ -74,7 +74,7 @@ public class LottoTest {
     @ValueSource(ints = {10_000, 20_000, 5_000, 1_000, 3_000})
     void  로또_구입_금액에_해당하는_로또를_발급한다(final int amount) {
         Lottos lottos = LottoFactory.createAutoLottos(amount);
-        assertThat(lottos.getLottoList()).hasSize(amount / LottoInfo.LOTTO_PRICE.getValue());
+        assertThat(lottos.getLottoList()).hasSize(amount / LottoPrice.LOTTO_NORMAL_PRICE.get());
     }
 
     static Set<LottoNumber> asLottoNumbers (List<Integer> lottoNumbers) {

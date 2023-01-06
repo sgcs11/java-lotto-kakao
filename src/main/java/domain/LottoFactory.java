@@ -13,7 +13,7 @@ public class LottoFactory {
 
         Collections.shuffle(lottoNumbers);
         return new Lotto(lottoNumbers.stream()
-                .limit(LottoInfo.LOTTO_NUMBER_COUNT.getValue())
+                .limit(LottoCount.LOTTO_NORMAL_COUNT.get())
                 .collect(Collectors.toSet()));
     }
 
@@ -33,7 +33,7 @@ public class LottoFactory {
     public static Lottos createAutoLottos(int autoCreateAmount) {
         List<Lotto> lottoList = new ArrayList<>();
 
-        for (int i = 0; i < autoCreateAmount / LottoInfo.LOTTO_PRICE.getValue(); i++) {
+        for (int i = 0; i < autoCreateAmount / LottoPrice.LOTTO_NORMAL_PRICE.get(); i++) {
             lottoList.add(CreateAutoLotto());
         }
 

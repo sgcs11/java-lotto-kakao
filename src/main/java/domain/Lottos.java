@@ -14,7 +14,7 @@ public class Lottos {
     public Lottos(List<Lotto> lottoList) {
         this.lottoList = lottoList;
         this.lottoCount = lottoList.size();
-        this.totalPay = lottoList.size() * LottoInfo.LOTTO_PRICE.getValue();
+        this.totalPay = lottoList.size() * LottoPrice.LOTTO_NORMAL_PRICE.get();
     }
 
     public List<Lotto> getLottoList() {

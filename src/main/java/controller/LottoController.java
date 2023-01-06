@@ -17,7 +17,7 @@ public class LottoController {
         LottoValidator.isValidAmount(totalIssueCost);
 
         Lottos manualIssueLottos = manualIssueProcess();
-        Lottos autoIssueLottos = autoIssueProcess(Integer.parseInt(totalIssueCost), LottoInfo.LOTTO_PRICE.getValue() * manualIssueLottos.getLottoList().size());
+        Lottos autoIssueLottos = autoIssueProcess(Integer.parseInt(totalIssueCost), LottoPrice.LOTTO_NORMAL_PRICE.get() * manualIssueLottos.getLottoList().size());
         LottoOutputView.printLottos(manualIssueLottos, autoIssueLottos);
 
         Lottos lottos = LottoFactory.createLottos(autoIssueLottos, manualIssueLottos);
