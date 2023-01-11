@@ -14,7 +14,7 @@ public class Lottos {
     public Lottos(List<Lotto> lottoList) {
         this.lottoList = lottoList;
         this.lottoCount = lottoList.size();
-        this.totalPay = lottoList.size() * LottoInfo.LOTTO_PRICE.getValue();
+        this.totalPay = lottoList.size() * LottoPrice.LOTTO_NORMAL_PRICE.get();
     }
 
     public List<Lotto> getLottoList() {
@@ -44,8 +44,7 @@ public class Lottos {
         int lottoMatchCount = lotto.getMatchCount(winNumbers.getLottoNumbers());
         boolean isMatchBonus = lotto.isMatchBonusNumber(winNumbers.getBonusNumber());
 
-        int rank = lotto.getLotteryRank(lottoMatchCount, isMatchBonus);
-        return rank;
+        return lotto.getLotteryRank(lottoMatchCount, isMatchBonus);
     }
 
     public Map<Integer, Integer> getTotalResult(final WinLottoNumbers winNumbers) {
@@ -59,6 +58,9 @@ public class Lottos {
     }
 
     public double getTotalLotteryRate(final int amount, final int purchaseAmount) {
-        return (double)amount/purchaseAmount;
+        if (purchaseAmount == 0) {
+            return 0.0;
+        }
+        return Math.floor((double)amount/purchaseAmount * 100) / 100.0;
     }
 }

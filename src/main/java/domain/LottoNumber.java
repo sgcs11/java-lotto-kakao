@@ -15,7 +15,7 @@ public class LottoNumber {
     private final int number;
 
     static {
-        IntStream.range(MIN_NUMBER, MAX_NUMBER)
+        IntStream.rangeClosed(MIN_NUMBER, MAX_NUMBER)
                 .forEach(number -> lottoNumbers.put(number, new LottoNumber(number)));
     }
 

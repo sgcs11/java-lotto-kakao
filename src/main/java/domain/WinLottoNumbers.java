@@ -1,19 +1,18 @@
 package domain;
 
-import java.util.List;
+import java.util.Set;
 
 public class WinLottoNumbers {
+    private final Set<LottoNumber> lottoNumbers;
 
-    private final List<LottoNumber> lottoNumbers;
+    private final LottoNumber bonusNumber;
 
-    private LottoNumber bonusNumber;
-
-    public WinLottoNumbers(final List<LottoNumber> lottoNumbers, final LottoNumber bonusNumber) {
+    public WinLottoNumbers(final Set<LottoNumber> lottoNumbers, final LottoNumber bonusNumber) {
         this.lottoNumbers = lottoNumbers;
         this.bonusNumber = bonusNumber;
     }
 
-    public List<LottoNumber> getLottoNumbers() {
+    public Set<LottoNumber> getLottoNumbers() {
         return lottoNumbers;
     }
 
